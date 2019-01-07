@@ -1,11 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Particles from 'react-particles-js';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 50,
+      density: {
+        enable: true,
+        value_area: 400
+      }
+    }
+  }
+};
+
+ReactDOM.render(
+	<div>
+		<Particles
+          className='particles'
+          params={particlesOptions}
+        />
+		<App />
+	</div>
+	, document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
