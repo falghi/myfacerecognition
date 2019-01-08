@@ -25,7 +25,7 @@ class Register extends Component {
   onSubmitRegister = () => {
   	const { loadUser, onRouteChange } = this.props;
 
-  	fetch('http://localhost:3000/register', {
+  	fetch('https://dry-cove-17776.herokuapp.com/register', {
   		method: 'post',
   		headers: {'Content-Type': 'application/json'},
   		body: JSON.stringify({

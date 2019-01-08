@@ -65,7 +65,7 @@ class App extends Component {
     // console.log('PictureSubmit');
     this.setState({ imageUrl: this.state.input }, async () => {
       try {
-        const resp = await fetch('http://localhost:3000/image', {
+        const resp = await fetch('https://dry-cove-17776.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
