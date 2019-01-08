@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 class Register extends Component {
 	constructor(props) {
@@ -6,7 +9,9 @@ class Register extends Component {
     this.state = {
     	registerName: '',
     	registerEmail: '',
-    	registerPassword: ''
+    	registerPassword: '',
+    	isFailed: false,
+    	failMessage: ''
     }
   }
 
@@ -25,6 +30,7 @@ class Register extends Component {
   onSubmitRegister = () => {
   	const { loadUser, onRouteChange } = this.props;
 
+  	let status = -1;
   	fetch('https://dry-cove-17776.herokuapp.com/register', {
   		method: 'post',
   		headers: {'Content-Type': 'application/json'},
@@ -34,15 +40,31 @@ class Register extends Component {
   			password: this.state.registerPassword
   		})
   	})
-  	.then(resp => resp.json())
+  	.then(resp => {
+  		status = resp.status;
+  		return resp.json();
+  	})
   	.then(data => {
-  		if (data !== 'failed') {
+  		if (status === 400) {
+  			this.setState({
+  				isFailed: true,
+  				failMessage: data
+  			})
+  		}
+  		else {
   			loadUser(data);
   			onRouteChange('home');
   		}
-  		else
-  			alert('Failed Register');
   	})
+  	.catch(err => {
+  		alert('Failed register');
+  	});
+  }
+
+  componentDidMount = () => {
+  	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip();
+		});
   }
 
   render() {
@@ -55,29 +77,43 @@ class Register extends Component {
 				      <div className="mt3">
 				        <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
 				        <input
+				        	data-toggle="tooltip" data-placement="right"
+				      		title="What would you like to be called?"
 				        	onChange={this.onNameChange}
 				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-				        	type="text" name="name"  id="name"
+				        	type="text" name="name" id="name"
 				        />
 				      </div>
 				      <div className="mt3">
 				        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
 				        <input
+				        	data-toggle="tooltip" data-placement="right"
+				      		title="Your email address"
 				        	onChange={this.onEmailChange}
 				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-				        	type="email" name="email-address"  id="email-address"
+				        	type="email" name="email-address" id="email-address"
 				        />
 				      </div>
 				      <div className="mv3">
 				        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 				        <input
+				      		data-toggle="tooltip" data-placement="right"
+				      		title="Password must be between 10 and 30 characters (inclusive)"
 				        	onChange={this.onPasswordChange}
 				        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-				        	type="password" name="password"  id="password"
+				        	type="password" name="password" id="password"
 				        />
 				      </div>
+				      {
+				      	this.state.isFailed ?
+					      	<pre className="alert alert-danger">
+	  					    	{this.state.failMessage}
+	  					    </pre>
+	  						:
+	  							<pre></pre>
+				      }
 				    </fieldset>
-				    <div className="">
+				    <div>
 				      <input
 				      	onClick={this.onSubmitRegister}
 				      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"

@@ -20,10 +20,10 @@ const particlesOptions = {
 
 ReactDOM.render(
 	<div>
-		<Particles
-          className='particles'
-          params={particlesOptions}
-        />
+    <Particles
+      className='particles'
+      params={particlesOptions}
+    />
 		<App />
 	</div>
 	, document.getElementById('root')

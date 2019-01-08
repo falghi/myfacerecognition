@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Signin extends Component {
 	constructor(props) {
     super(props);
     this.state = {
     	signInEmail: '',
-    	signInPassword: ''
+    	signInPassword: '',
+    	isFailed: false
     }
   }
 
@@ -35,7 +37,7 @@ class Signin extends Component {
   			onRouteChange('home');
   		}
   		else
-  			alert('Wrong Email/Password');
+  			this.setState({ isFailed: true });
   	});
   }
 
@@ -53,7 +55,7 @@ class Signin extends Component {
 				        <input
 				        	onChange={this.onEmailChange}
 				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-				        	type="email" name="email-address"  id="email-address"
+				        	type="email" name="email-address" id="email-address"
 				        />
 				      </div>
 				      <div className="mv3">
@@ -61,9 +63,17 @@ class Signin extends Component {
 				        <input
 				        	onChange={this.onPasswordChange}
 					        className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-					        type="password" name="password"  id="password"
+					        type="password" name="password" id="password"
 				        />
 				      </div>
+				      {
+				      	this.state.isFailed ?
+					      	<pre className="alert alert-danger">
+	  					    	Wrong Email/Password
+	  					    </pre>
+	  						:
+	  							<pre></pre>
+				      }
 				    </fieldset>
 				    <div className="">
 				      <input
