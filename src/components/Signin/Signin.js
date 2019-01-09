@@ -22,7 +22,7 @@ class Signin extends Component {
   onSubmitSignIn = () => {
   	const { loadUser, onRouteChange } = this.props;
   	
-  	fetch('https://dry-cove-17776.herokuapp.com/signin', {
+  	fetch(process.env.REACT_APP_API_URL + '/signin', {
   		method: 'post',
   		headers: {'Content-Type': 'application/json'},
   		body: JSON.stringify({

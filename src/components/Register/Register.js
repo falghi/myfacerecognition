@@ -31,7 +31,7 @@ class Register extends Component {
   	const { loadUser, onRouteChange } = this.props;
 
   	let status = -1;
-  	fetch('https://dry-cove-17776.herokuapp.com/register', {
+  	fetch(process.env.REACT_APP_API_URL + '/register', {
   		method: 'post',
   		headers: {'Content-Type': 'application/json'},
   		body: JSON.stringify({
@@ -77,7 +77,7 @@ class Register extends Component {
 				      <div className="mt3">
 				        <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
 				        <input
-				        	data-toggle="tooltip" data-placement="right"
+				        	data-toggle="tooltip" data-placement="top"
 				      		title="What would you like to be called?"
 				        	onChange={this.onNameChange}
 				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
@@ -87,7 +87,7 @@ class Register extends Component {
 				      <div className="mt3">
 				        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
 				        <input
-				        	data-toggle="tooltip" data-placement="right"
+				        	data-toggle="tooltip" data-placement="top"
 				      		title="Your email address"
 				        	onChange={this.onEmailChange}
 				        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
@@ -97,8 +97,8 @@ class Register extends Component {
 				      <div className="mv3">
 				        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 				        <input
-				      		data-toggle="tooltip" data-placement="right"
-				      		title="Password must be between 10 and 30 characters (inclusive)"
+				      		data-toggle="tooltip" data-placement="top"
+				      		title="Password must be between 8 and 30 characters"
 				        	onChange={this.onPasswordChange}
 				        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
 				        	type="password" name="password" id="password"

@@ -14,10 +14,11 @@
     "tachyons": "^4.11.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set \"REACT_APP_API_URL=https://dry-cove-17776.herokuapp.com\" && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "localstart": "set \"REACT_APP_API_URL=http://localhost:3001\" && react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

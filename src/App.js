@@ -20,7 +20,8 @@ const initialState = {
     email: '',
     entries: 0,
     joined: null
-  }
+  },
+  userRank: ''
 };
 
 class App extends Component {
@@ -29,10 +30,24 @@ class App extends Component {
     this.state = initialState;
   }
 
-  loadUser = (data) => {
+  loadUser = async (data) => {
     this.setState({
-      user: data
+      user: data,
+      userRank: await this.getUserRank(data.entries)
     })
+  }
+
+  getUserRank = async (entries) => {
+    const resp = await fetch(process.env.REACT_APP_API_URL + '/rank', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        entries: entries
+      })
+    });
+
+    const data = await resp.json();
+    return data.rank;
   }
 
   calculateFaceLocation = (data) => {
@@ -65,7 +80,7 @@ class App extends Component {
     // console.log('PictureSubmit');
     this.setState({ imageUrl: this.state.input }, async () => {
       try {
-        const resp = await fetch('https://dry-cove-17776.herokuapp.com/image', {
+        const resp = await fetch(process.env.REACT_APP_API_URL + '/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -78,8 +93,10 @@ class App extends Component {
           throw new Error('error');
 
         const data = await resp.json();
-
-        this.setState(Object.assign(this.state.user, { entries: data.count }));
+        this.setState({
+          user: Object.assign(this.state.user, { entries: data.count }),
+          userRank: await this.getUserRank(data.count)
+        });
         this.displayFaceBox(this.calculateFaceLocation(data.clarifai.outputs[0].data.regions));
 
       } catch(err) {
@@ -116,6 +133,7 @@ class App extends Component {
               <Rank
                 name={this.state.user.name}
                 entries={this.state.user.entries}
+                rank={this.state.userRank}
               />
               <ImageLinkForm
                 onInputChange={this.onInputChange}
