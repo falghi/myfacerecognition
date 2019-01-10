@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
@@ -130,6 +131,7 @@ class App extends Component {
           :
             <div>
               <Logo />
+              <Leaderboard />
               <Rank
                 name={this.state.user.name}
                 entries={this.state.user.entries}

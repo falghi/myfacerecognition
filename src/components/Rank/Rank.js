@@ -11,7 +11,7 @@ const Rank = ({ name, entries, rank }) => {
 					{rank}
 				</div>
 				<div className='white f5'>
-					{`Entries count: ${entries}`}
+					{`Total Submission: ${entries}`}
 				</div>
 			</div>
 		</div>

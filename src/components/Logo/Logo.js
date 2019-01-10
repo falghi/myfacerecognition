@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import Tilt from 'react-tilt';
-import $ from 'jquery';
 import brain from './brain.png';
 import './Logo.css';
 
 class Logo extends Component {
+	constructor() {
+		super();
+		this.state = {};
+		window.addEventListener('resize', () => {
+			this.setState(this.state);
+		});
+	}
+
 	addSomeStyles = () => {
-		const windowRatio = $(window).width() / $(window).height();
+		const windowRatio = window.innerWidth / window.innerHeight;
 		if (windowRatio > 1.06)
 			return { position: 'fixed' };
 		else
