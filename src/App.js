@@ -78,10 +78,6 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
-  componentDidMount() {
-    document.title = "MyFaceRecognition App";
-  }
-
   PictureSubmit = () => {
     // console.log('PictureSubmit');
     this.setState({ imageUrl: this.state.input, pictureSubmitFail: false }, async () => {
