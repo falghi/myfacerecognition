@@ -13,8 +13,7 @@ class Logo extends Component {
 	}
 
 	addSomeStyles = () => {
-		const windowRatio = window.innerWidth / window.innerHeight;
-		if (windowRatio > 1.06)
+		if (window.innerWidth > 880)
 			return { position: 'fixed' };
 		else
 			return { position: 'static' };

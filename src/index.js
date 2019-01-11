@@ -9,7 +9,7 @@ import 'tachyons';
 const particlesOptions = {
   particles: {
     number: {
-      value: 50,
+      value: 30,
       density: {
         enable: true,
         value_area: 400

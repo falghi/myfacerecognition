@@ -9,15 +9,15 @@ class Leaderboard extends Component {
 		window.addEventListener('resize', () => {
 			this.setState(this.state);
 		});
+		this.updateID = null;
 		this.updateData();
 	}
 
 	addSomeStyles = () => {
-		const windowRatio = window.innerWidth / window.innerHeight;
-		if (windowRatio > 1.68)
-			return { position: 'fixed', textAlign: 'right' };
+		if (window.innerWidth > 1740)
+			return { position: 'fixed', textAlign: 'right', zIndex: -1 };
 		else
-			return { position: 'static', textAlign: 'center' };
+			return { position: 'static' };
 	}
 
 	updateData = async () => {
@@ -31,19 +31,22 @@ class Leaderboard extends Component {
 			data.sort((a, b) => b.entries - a.entries);
 			const players = data.slice(0, 10);
 			this.setState({ playerList: players }, () => {
-				setTimeout(this.updateData, 1000);
+				this.updateID = setTimeout(this.updateData, 1000);
 			});
 
 		} catch(err) {
-			setTimeout(this.updateData, 3000);
+			this.updateID = setTimeout(this.updateData, 3000);
 		}
 	}
 
 	getData = () => {
-		return this.state.playerList.map( ({ name, entries }, id) => {
+		let lastRank = 1;
+		return this.state.playerList.map( ({ name, entries }, id, arr) => {
 			return (
-				<tr>
-		      <td className='pv2 ph3 tc'>{id + 1}</td>
+				<tr key={id}>
+		      <td className='pv2 ph3 tc'>
+		      	{lastRank = id > 0 && arr[id].entries === arr[id-1].entries ? lastRank : id + 1}
+		      </td>
 		      <td className='pv2 ph3 tl'>{name}</td>
 		      <td className='pv2 ph3 tc'>{entries}</td>
 		    </tr>
@@ -51,21 +54,28 @@ class Leaderboard extends Component {
 		})
 	}
 
+	componentWillUnmount() {
+		clearTimeout(this.updateID);
+	}
+
 	render() {
 		return (
 			<div style={this.addSomeStyles()} className='w-100'>
-				<table className='b--black-10 dib mh4' border='1'>
-				  <thead>
-				    <tr>
-				      <th className='pv2 ph3 tc'>RANK</th>
-				      <th className='pv2 ph3 tc'>NAME</th>
-				      <th className='pv2 ph3 tc'>TOTAL SUBMISSION</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	{this.getData()}
-				  </tbody>
-				</table>
+				<div className='dib mh4 tc'>
+					<div className='pv1 ph4 f4 b ba dib mb3 b--black-10'>TOP 10</div>
+					<table className='b--black-10' border='1'>
+					  <thead>
+					    <tr>
+					      <th className='pv2 ph3 tc'>RANK</th>
+					      <th className='pv2 ph3 tc'>NAME</th>
+					      <th className='pv2 ph3 tc'>TOTAL SUBMISSION</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	{this.getData()}
+					  </tbody>
+					</table>
+				</div>
 			</div>
 		);
 	}

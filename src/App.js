@@ -15,6 +15,7 @@ const initialState = {
   box: [],
   route: 'signin',
   isSignedIn: false,
+  pictureSubmitFail: false,
   user: {
     id: '',
     name: '',
@@ -77,9 +78,13 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
+  componentDidMount() {
+    document.title = "MyFaceRecognition App";
+  }
+
   PictureSubmit = () => {
     // console.log('PictureSubmit');
-    this.setState({ imageUrl: this.state.input }, async () => {
+    this.setState({ imageUrl: this.state.input, pictureSubmitFail: false }, async () => {
       try {
         const resp = await fetch(process.env.REACT_APP_API_URL + '/image', {
           method: 'put',
@@ -101,7 +106,7 @@ class App extends Component {
         this.displayFaceBox(this.calculateFaceLocation(data.clarifai.outputs[0].data.regions));
 
       } catch(err) {
-        alert('Error submitting picture');
+        this.setState({ pictureSubmitFail: true });
       }
     });
   }
@@ -140,6 +145,7 @@ class App extends Component {
               <ImageLinkForm
                 onInputChange={this.onInputChange}
                 PictureSubmit={this.PictureSubmit}
+                pictureSubmitFail={this.state.pictureSubmitFail}
               />
               <FaceRecognition
                 box = {box}
