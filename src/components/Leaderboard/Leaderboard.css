@@ -2,6 +2,11 @@ td:nth-child(2) {
 	width: 200px;
 }
 
+.leaderboard {
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+
 table {
 	z-index: 1;
 }
@@ -17,6 +22,12 @@ table {
 
 	.leaderboard {
 		font-size: 80%;
-		margin: 0;
+	}
+}
+
+@media screen and (max-width: 949px) {
+	.leaderboard {
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
