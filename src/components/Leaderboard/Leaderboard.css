@@ -5,3 +5,17 @@ td:nth-child(2) {
 table {
 	z-index: 1;
 }
+
+@media screen and (max-width: 1740px) {
+	td:nth-child(2) {
+		width: 150px;
+	}
+
+	td:nth-child(3) {
+		width: 60px;
+	}
+
+	.leaderboard {
+		font-size: 80%;
+	}
+}

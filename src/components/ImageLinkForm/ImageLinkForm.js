@@ -16,7 +16,7 @@ class ImageLinkForm extends Component {
 		const { onInputChange, PictureSubmit, pictureSubmitFail } = this.props;
 
 		return (
-			<div>
+			<div className="form-imagelink">
 				<p className='f3 pt4'>
 					{'MyFaceRecognition will detect faces in your pictures. Give it a try.'}
 				</p>

@@ -7,3 +7,33 @@
 	background-size: 55px 55px, 55px 55px, 20px 20px, 20px 20px;
 	background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
+
+.form-imagelink, .your-rank-is {
+	padding-right: 100px;
+}
+
+@media screen and (max-width: 1400px) {
+	.form-imagelink, .your-rank-is {
+		padding-right: 200px;
+	}
+}
+
+@media screen and (max-width: 1250px) {
+	.form-imagelink, .your-rank-is {
+		padding-right: 100px;
+	}
+
+	.your-rank-is {
+		padding-top: 350px;
+	}
+}
+
+@media screen and (max-width: 949px) {
+	.form-imagelink, .your-rank-is {
+		padding-right: 0;
+	}
+
+	.your-rank-is {
+		padding-top: 20px;
+	}
+}

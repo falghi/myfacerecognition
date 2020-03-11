@@ -14,7 +14,7 @@ class Leaderboard extends Component {
 	}
 
 	addSomeStyles = () => {
-		if (window.innerWidth > 1740)
+		if (window.innerWidth >= 950)
 			return { position: 'fixed', textAlign: 'right', zIndex: -1 };
 		else
 			return { position: 'static' };
@@ -61,7 +61,7 @@ class Leaderboard extends Component {
 	render() {
 		return (
 			<div style={this.addSomeStyles()} className='w-100'>
-				<div className='dib mh4 tc'>
+				<div className='leaderboard dib mh4 tc'>
 					<div className='pv1 ph4 f4 b ba dib mb3 b--black-10'>TOP 10</div>
 					<table className='b--black-10' border='1'>
 					  <thead>
